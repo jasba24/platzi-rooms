@@ -39,13 +39,14 @@
 		</main>
 		<footer-partial></footer-partial>
 		<!-- modal -->
-		<modal :show="true">
+		<modal :show="modals.login">
 			<h1>Modal Title</h1>
 		</modal>
 	</div>
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import HeaderPartial from "@/partials/HeaderPartial.vue"
 import FooterPartial from "@/partials/FooterPartial.vue"
 import Modal from "@/components/Modal"
@@ -56,6 +57,10 @@ export default {
 		HeaderPartial,
 		FooterPartial,
 		Modal,
+	},
+
+	computed: {
+		...mapGetters(["modals"]),
 	},
 }
 </script>

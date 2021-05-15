@@ -28,7 +28,10 @@ export default {
 
 	methods: {
 		onClose() {
-			this.$emit("close-modal")
+			this.$store.dispatch("TOOGLE_MODAL_STATE", {
+				name: "login",
+				value: false,
+			})
 		},
 	},
 }

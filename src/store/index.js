@@ -17,4 +17,8 @@ export default createStore({
 			commit("SET_MODAL_STATE", { name, value })
 		},
 	},
+
+	getters: {
+		modals: state => state.modals,
+	},
 })

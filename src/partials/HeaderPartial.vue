@@ -31,7 +31,7 @@
 							</div>
 						</div>
 						<div v-else>
-							<button class="btn__outline btn__outline--teal rounded mr-2">
+							<button class="btn__outline btn__outline--teal rounded mr-2" @click.prevent="getLogin">
 								Login
 							</button>
 							<button
@@ -57,7 +57,10 @@ export default {
 	},
 	methods: {
 		getLogin() {
-			console.log("Login Click")
+			this.$store.dispatch("TOOGLE_MODAL_STATE", {
+				name: "login",
+				value: true,
+			})
 		},
 		signUp() {
 			console.log("Sign Up Click")
