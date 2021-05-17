@@ -32,6 +32,10 @@ export default {
 				name: "login",
 				value: false,
 			})
+			this.$store.dispatch("TOOGLE_MODAL_STATE", {
+				name: "register",
+				value: false,
+			})
 		},
 	},
 }

@@ -40,7 +40,16 @@
 		<footer-partial></footer-partial>
 		<!-- modal -->
 		<modal :show="modals.login">
-			<h1>Modal Title</h1>
+			<h2 class="text-grey-darkest font-semibold text-center mb-6">
+				Welcome to Platzi Rooms
+			</h2>
+			<InputLogin />
+		</modal>
+		<modal :show="modals.register">
+			<h2 class="text-grey-darkest font-semibold text-center mb-6">
+				Welcome to Platzi Rooms
+			</h2>
+			<InputRegister />
 		</modal>
 	</div>
 </template>
@@ -50,6 +59,8 @@ import { mapGetters } from "vuex"
 import HeaderPartial from "@/partials/HeaderPartial.vue"
 import FooterPartial from "@/partials/FooterPartial.vue"
 import Modal from "@/components/Modal"
+import InputLogin from "@/components/InputLogin"
+import InputRegister from "@/components/InputRegister"
 
 export default {
 	name: "DefaultLayout",
@@ -57,6 +68,8 @@ export default {
 		HeaderPartial,
 		FooterPartial,
 		Modal,
+		InputLogin,
+		InputRegister,
 	},
 
 	computed: {
