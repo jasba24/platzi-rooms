@@ -1,5 +1,11 @@
 <template>
 	<form>
+		<div class="mb-4" v-if="isRegister">
+			<label class="input__label">Name</label>
+			<div class="form__field relative">
+				<input class="input__field" type="text" placeholder="Bruce Wayne" />
+			</div>
+		</div>
 		<div class="mb-4">
 			<label class="input__label">Email</label>
 			<div class="form__field relative">
@@ -29,5 +35,12 @@
 <script>
 export default {
 	name: "Input",
+
+	props: {
+		isRegister: {
+			type: Boolean,
+			required: true,
+		},
+	},
 }
 </script>

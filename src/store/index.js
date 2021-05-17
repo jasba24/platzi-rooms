@@ -6,6 +6,7 @@ export default createStore({
 		modals: {
 			login: false,
 			register: false,
+			isOpen: false,
 		},
 	},
 	mutations: {

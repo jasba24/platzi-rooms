@@ -29,11 +29,7 @@ export default {
 	methods: {
 		onClose() {
 			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "login",
-				value: false,
-			})
-			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "register",
+				name: "isOpen",
 				value: false,
 			})
 		},
