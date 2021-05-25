@@ -31,7 +31,17 @@
 							</div>
 						</div>
 						<div v-else>
-							<slot></slot>
+							<button
+								class="btn__outline btn__outline--teal rounded mr-2"
+								@click.prevent="getLogin"
+							>
+								Login
+							</button>
+							<button
+								class="bg-yellow-dark text-yellow-darker font-semibold py-2 px-4 rounded"
+							>
+								Register
+							</button>
 						</div>
 					</div>
 				</div>
@@ -43,15 +53,20 @@
 <script>
 export default {
 	name: "HeaderPartial",
+
 	data() {
 		return {
 			isAuthenticated: true,
 		}
 	},
 
-	emits: ["login"],
-
 	methods: {
+		getLogin() {
+			this.$store.dispatch("TOOGLE_MODAL_STATE", {
+				name: "login",
+				value: true,
+			})
+		},
 		signUp() {
 			console.log("Sign Up Click")
 		},

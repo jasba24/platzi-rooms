@@ -1,19 +1,6 @@
 <template>
 	<div class="default-layout">
-		<header-partial>
-			<button
-				class="btn__outline btn__outline--teal rounded mr-2"
-				@click.prevent="getLogin"
-			>
-				Login
-			</button>
-			<button
-				class="bg-yellow-dark text-yellow-darker font-semibold py-2 px-4 rounded"
-				@click.prevent="getRegister"
-			>
-				Register
-			</button>
-		</header-partial>
+		<header-partial> </header-partial>
 		<section class="section__hero py-6 bg-black bg-cover bg-center">
 			<div class="container">
 				<div class="section__form bg-white p-4 w-1/2 shadow-md">
@@ -52,12 +39,39 @@
 		</main>
 		<footer-partial></footer-partial>
 		<!-- modal -->
-		<modal :show="modals.isOpen">
+		<Modal :show="modals.login" @closeModal="closeModal">
 			<h2 class="text-grey-darkest font-semibold text-center mb-6">
 				Welcome to Platzi Rooms
 			</h2>
-			<InputLogin :isRegister="modals.register" />
-		</modal>
+			<form>
+				<div class="mb-4">
+					<label class="input__label">Email</label>
+					<div class="form__field relative">
+						<input
+							class="input__field"
+							type="text"
+							placeholder="bruce.wayne@imnobatman.org"
+						/>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label class="input__label">Password</label>
+					<div class="form__field relative">
+						<input
+							class="input__field"
+							type="password"
+							placeholder="***************"
+						/>
+					</div>
+				</div>
+				<div class="mb-4">
+					<CheckInput v-model:toggled="formLogin.rememberMe" />
+				</div>
+				<div class="mb-4">
+					<button class="btn btn-primary mr-3 w-full">Login</button>
+				</div>
+			</form>
+		</Modal>
 	</div>
 </template>
 
@@ -66,7 +80,7 @@ import { mapGetters } from "vuex"
 import HeaderPartial from "@/partials/HeaderPartial.vue"
 import FooterPartial from "@/partials/FooterPartial.vue"
 import Modal from "@/components/Modal"
-import InputLogin from "@/components/InputLogin"
+import CheckInput from "@/components/CheckInput"
 
 export default {
 	name: "DefaultLayout",
@@ -74,43 +88,28 @@ export default {
 		HeaderPartial,
 		FooterPartial,
 		Modal,
-		InputLogin,
+		CheckInput,
+	},
+
+	data() {
+		return {
+			formLogin: {
+				email: "",
+				password: "",
+				rememberMe: false,
+			},
+		}
 	},
 
 	computed: {
 		...mapGetters(["modals"]),
 	},
 
-	watch: {
-		toogleModal() {
-			if (modals.login === false || modals.register === false) {
-				this.$store.dispatch("TOOGLE_MODAL_STATE", {
-					name: "isOpen",
-					value: true,
-				})
-			}
-		},
-	},
-
 	methods: {
-		getLogin() {
+		closeModal() {
 			this.$store.dispatch("TOOGLE_MODAL_STATE", {
 				name: "login",
-				value: true,
-			})
-			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "isOpen",
-				value: true,
-			})
-		},
-		getRegister() {
-			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "register",
-				value: true,
-			})
-			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "isOpen",
-				value: true,
+				value: false,
 			})
 		},
 	},
