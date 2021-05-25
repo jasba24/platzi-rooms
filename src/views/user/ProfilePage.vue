@@ -29,6 +29,9 @@
 									:src="profile.avatar"
 								/>
 							</div>
+							<div class="text-lg">
+								<span class="font-semibold">{{userRoomsCount}}</span> rooms
+							</div>
 						</div>
 					</aside>
 					<div class="profile__fields">
@@ -143,6 +146,9 @@ export default {
 		...mapGetters({
 			user: "authUser",
 		}),
+		userRoomsCount() {
+			return this.$store.getters.userRoomsCount(this.user[".key"])
+		}
 	},
 }
 </script>
