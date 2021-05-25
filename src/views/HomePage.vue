@@ -1,6 +1,19 @@
 <template>
 	<default-layout>
 		<section class="container py-6">
+			<h1 class="text-3xl font-light text-grey-darkest mb-3">Recomended</h1>
+			<div class="section">
+				<TinySlider>
+					<div class="slider-item">1</div>
+					<div class="slider-item">2</div>
+					<div class="slider-item">3</div>
+					<div class="slider-item">4</div>
+					<div class="slider-item">5</div>
+					<div class="slider-item">6</div>
+				</TinySlider>
+			</div>
+		</section>
+		<section class="container py-6">
 			<h1 class="text-3xl font-light text-grey-darkest mb-3">Explore</h1>
 			<div class="section__explore grid-container mb-8">
 				<div class="house__card mb-3" v-for="i in 12" :key="i">
@@ -39,11 +52,13 @@
 
 <script>
 import DefaultLayout from "@/layouts/DefaultLayout.vue"
+import TinySlider from "@/components/TinySlider"
 
 export default {
 	name: "HomePage",
 	components: {
 		DefaultLayout,
+		TinySlider,
 	},
 }
 </script>
