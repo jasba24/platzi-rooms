@@ -1,4 +1,5 @@
 import { createStore } from "vuex"
+import { set } from "vue"
 import sourceData from "../data.json"
 import countObjectProperties from "../utils"
 
@@ -12,13 +13,28 @@ export default createStore({
 		},
 	},
 	mutations: {
-		SET_MODAL_STATE: (state, { name, value }) => {
+		SET_MODAL_STATE(state, { name, value }) {
 			state.modals[name] = value
+		},
+		SET_ROOM(state, { newRoom, roomId }) {
+			state.rooms[roomId] = newRoom
+		},
+		APPEND_ROOM_TO_USER(state, { roomId, userId }) {
+			state.users[userId] = roomId
 		},
 	},
 	actions: {
 		TOOGLE_MODAL_STATE: ({ commit }, { name, value }) => {
 			commit("SET_MODAL_STATE", { name, value })
+		},
+		CREATE_ROOM: ({ state, commit }, room) => {
+			const newRoom = room
+			const roomId = `room${Math.random()}`
+			newRoom[".key"] = roomId
+			newRoom.userId = state.authId
+
+			commit("SET_ROOM", { newRoom, roomId })
+			commit("APPEND_ROOM_TO_USER", { roomId, userId: newRoom.userId })
 		},
 	},
 
@@ -26,6 +42,6 @@ export default createStore({
 		modals: state => state.modals,
 		authUser: state => state.users[state.authId],
 		rooms: state => state.rooms,
-		userRoomsCount: state => id => countObjectProperties(state.users[id].rooms)
+		userRoomsCount: state => id => countObjectProperties(state.users[id].rooms),
 	},
 })

@@ -35,6 +35,18 @@ const routes = [
 		component: () =>
 			import(/* webpackChunkName: "NotFoundPage" */ "@/views/NotFoundPage"),
 	},
+	{
+		path: "/house",
+		redirect: { name: "ProfilePage" },
+	},
+	{
+		path: "/house/new",
+		name: "CreateHousePage",
+		component: () =>
+			import(
+				/* webpackChunkName: "CreateHousePage" */ "@/views/CreateHousePage"
+			),
+	},
 ]
 
 const router = createRouter({
