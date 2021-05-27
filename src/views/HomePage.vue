@@ -58,6 +58,10 @@ import TinySlider from "@/components/TinySlider"
 export default {
 	name: "HomePage",
 
+	created() {
+		this.$store.dispatch("FETCH_ROOMS", 12)
+	},
+
 	components: {
 		DefaultLayout,
 		TinySlider,

@@ -71,6 +71,10 @@ export default {
 		PageLayout,
 	},
 
+	created() {
+		this.$store.dispatch("FETCH_ROOMS")
+	},
+
 	computed: {
 		...mapGetters(["rooms"]),
 	},
