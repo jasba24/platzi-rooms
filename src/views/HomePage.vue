@@ -36,6 +36,12 @@
 						<div class="house__price text-xs">
 							<span class="font-bold">${{ room.price }} MXN</span> per night
 						</div>
+						<div class="house__services text-xs mt-2">
+							<h4 class=" text-teal-dark">Services</h4>
+							<ul v-for="(room, i) in room.services" :key="i">
+								<li>{{ $filters.getService(services, room) }}</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -60,6 +66,7 @@ export default {
 
 	created() {
 		this.$store.dispatch("FETCH_ROOMS", 12)
+		this.$store.dispatch("FETCH_SERVICES")
 	},
 
 	components: {
@@ -69,6 +76,7 @@ export default {
 
 	computed: {
 		...mapGetters(["rooms"]),
+		...mapGetters(["services"]),
 	},
 }
 </script>

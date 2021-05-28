@@ -25,9 +25,9 @@ export default createStore({
 		SET_ITEM(state, { item, id, resource }) {
 			const newItem = item
 			newItem[".key"] = id
-			// console.log(newItem)
 			state[resource].push(newItem)
-			// console.log(state[resource].newItem)
+			// console.log(this.state.services);
+			// console.log(this.state.users);
 		},
 	},
 	actions: {
@@ -36,12 +36,27 @@ export default createStore({
 		},
 		CREATE_ROOM: ({ state, commit }, room) => {
 			const newRoom = room
-			const roomId = `room${Math.random()}`
-			newRoom[".key"] = roomId
+			console.log(room);
+			const roomId = firebase
+				.database()
+				.ref("rooms")
+				.push().key
 			newRoom.userId = state.authId
+			newRoom.publishedAt = Math.floor(Date.now() / 1000)
+			newRoom.meta = { likes: 0 }
 
-			commit("SET_ROOM", { newRoom, roomId })
-			commit("APPEND_ROOM_TO_USER", { roomId, userId: newRoom.userId })
+			const updates = {}
+			updates[`rooms/${roomId}`] = newRoom
+			updates[`users/${newRoom.userId}/rooms/${roomId}`] = roomId
+			firebase
+				.database()
+				.ref()
+				.update(updates)
+				.then(() => {
+					commit("SET_ROOM", { newRoom, roomId })
+					commit("APPEND_ROOM_TO_USER", { roomId, userId: newRoom.userId })
+					return Promise.resolve(state.rooms[roomId])
+				})
 		},
 		FETCH_ROOMS: ({ state, commit }, limit) => {
 			new Promise(resolve => {
@@ -79,6 +94,23 @@ export default createStore({
 					})
 			})
 		},
+		FETCH_SERVICES: ({ state, commit }) => {
+			new Promise(resolve => {
+				let instance = firebase.database().ref("services")
+				instance.once("value", snapshot => {
+					const services = snapshot.val()
+					Object.keys(services).forEach(serviceId => {
+						const service = services[serviceId]
+						commit("SET_ITEM", {
+							resource: "services",
+							id: serviceId,
+							item: service,
+						})
+						resolve(Object.values(state.services))
+					})
+				})
+			})
+		},
 	},
 
 	getters: {
@@ -86,5 +118,6 @@ export default createStore({
 		authUser: state => state.users[state.authId],
 		rooms: state => state.rooms,
 		userRoomsCount: state => id => countObjectProperties(state.users[id].rooms),
+		services: state => state.services,
 	},
 })

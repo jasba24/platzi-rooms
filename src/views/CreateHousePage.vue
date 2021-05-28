@@ -48,11 +48,33 @@
 							placeholder="https://images.unsplash.com/photo-1504615755583-2916b52192a3"
 						/>
 					</div>
+					<div class="mb-4">
+						<label class="input__label">Precio</label>
+						<input
+							v-model="publication.price"
+							type="number"
+							class="input__field"
+							placeholder="0"
+						/>
+					</div>
+					<div class="mb-4">
+						<label class="input__label">Servicios</label>
+						<button
+							v-for="(service, i) in services"
+							:key="i"
+							@click.prevent="addService(i)"
+							class="font-semibold py-3 px-6 mr-4 rounded bg-blue-light"
+						>
+							{{ service.name }}
+						</button>
+					</div>
 					<div class="mb-4 text-right">
 						<button
 							@click.prevent="save"
 							class="w-full bg-yellow-dark text-yellow-darker font-semibold py-3 px-6 rounded"
-						>Publish</button>
+						>
+							Publish
+						</button>
 					</div>
 				</form>
 			</div>
@@ -61,6 +83,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import PageLayout from "@/layouts/PageLayout"
 
 export default {
@@ -72,8 +95,18 @@ export default {
 				title: "",
 				description: "",
 				featuredImage: "",
+				price: 0,
+				services: {},
 			},
 		}
+	},
+
+	created() {
+		this.$store.dispatch("FETCH_SERVICES")
+	},
+
+	computed: {
+		...mapGetters(["services"]),
 	},
 
 	components: {
@@ -82,15 +115,27 @@ export default {
 
 	methods: {
 		save() {
-			const { title, description, featuredImage } = this.publication
+			const {
+				title,
+				description,
+				featuredImage,
+				price,
+				services,
+			} = this.publication
 			const room = {
 				title,
 				description,
+				price,
+				services,
 				featured_image: featuredImage,
 				publishedAt: Date.now(),
 			}
-
 			this.$store.dispatch("CREATE_ROOM", room)
+		},
+
+		addService(serviceId) {
+			const name = this.services[serviceId][".key"]
+			this.publication.services[name] = name
 		},
 	},
 }

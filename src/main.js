@@ -3,6 +3,7 @@ import firebase from "firebase"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
+import { getService } from "./filters/getService"
 
 const firebaseConfig = {
 	apiKey: "AIzaSyA-JXZsHXkHrfEe672K2KoOXE4bwZXMsgg",
@@ -18,7 +19,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
-createApp(App)
-	.use(store)
-	.use(router)
-	.mount("#app")
+const app = createApp(App)
+	app.config.globalProperties.$filters = {
+		getService,
+	}
+
+	app.use(store)
+	app.use(router)
+	app.mount("#app")
