@@ -36,7 +36,7 @@ export default createStore({
 		},
 		CREATE_ROOM: ({ state, commit }, room) => {
 			const newRoom = room
-			console.log(room);
+			console.log(room)
 			const roomId = firebase
 				.database()
 				.ref("rooms")
@@ -87,7 +87,7 @@ export default createStore({
 					.once("value", snapshot => {
 						commit("SET_ITEM", {
 							resource: "users",
-							id: snapshot.ket,
+							id: snapshot.key,
 							item: snapshot.val(),
 						})
 						resolve(state.users[id])
@@ -115,7 +115,10 @@ export default createStore({
 
 	getters: {
 		modals: state => state.modals,
-		authUser: state => state.users[state.authId],
+		authUser: state => {
+			console.log(state.users[state.authId]);
+			state.users[state.authId]
+		},
 		rooms: state => state.rooms,
 		userRoomsCount: state => id => countObjectProperties(state.users[id].rooms),
 		services: state => state.services,

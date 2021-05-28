@@ -6,7 +6,7 @@
 
 <script>
 export default {
-	created() {
+	beforeCreate() {
 		this.$store.dispatch("FETCH_USER", { id: this.$store.state.authId })
 	},
 }

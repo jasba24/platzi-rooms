@@ -30,12 +30,6 @@ const routes = [
 			import(/* webpackChunkName: "HousesPage" */ "@/views/user/HousesPage"),
 	},
 	{
-		path: "/*",
-		name: "NotFoundPage",
-		component: () =>
-			import(/* webpackChunkName: "NotFoundPage" */ "@/views/NotFoundPage"),
-	},
-	{
 		path: "/house",
 		redirect: { name: "ProfilePage" },
 	},
@@ -46,6 +40,12 @@ const routes = [
 			import(
 				/* webpackChunkName: "CreateHousePage" */ "@/views/CreateHousePage"
 			),
+	},
+	{
+		path: "/*",
+		name: "NotFoundPage",
+		component: () =>
+			import(/* webpackChunkName: "NotFoundPage" */ "@/views/NotFoundPage"),
 	},
 ]
 
