@@ -69,6 +69,7 @@
 				</div>
 				<div class="mb-4">
 					<CheckInput v-model:toggled="formLogin.rememberMe" />
+					<span class="absolute">Remember Me</span>
 				</div>
 				<div class="mb-4">
 					<button class="btn btn-primary mr-3 w-full">Login</button>

@@ -34,6 +34,9 @@
 									<p class="text-grey-dark">Online</p>
 								</div>
 							</div>
+							<button class="flex items-center ml-4" @click.prevent="logOut">
+								<font-awesome-icon icon="power-off" />
+							</button>
 						</div>
 						<div v-else>
 							<button
@@ -75,6 +78,9 @@ export default {
 				value: true,
 			})
 		},
+		logOut() {
+			this.$store.dispatch("LOG_OUT")
+		}
 	},
 
 	computed: {
