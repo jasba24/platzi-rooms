@@ -4,9 +4,10 @@
 			<div class="container">
 				<form class="form">
 					<div class="form__field relative">
-						<i class="input-icon material-icons absolute text-grey-darker"
-							>search</i
-						>
+						<font-awesome-icon
+							class="absolute text-grey-darker input-icon"
+							icon="search"
+						/>
 						<input
 							class="input__search"
 							id="where"

@@ -7,6 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-brands-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-4",
     "core-js": "^3.6.5",
     "firebase": "^8.6.2",
     "tiny-slider": "^2.9.3",

@@ -13,11 +13,15 @@
 				<div class="flex items-center w-auto">
 					<div class="items__controls">
 						<div class="flex" v-if="user">
-							<router-link tag="button" class="mr-2 flex items-center" :to="{ name: 'CreateHousePage' }">
-								<i class="material-icons">add</i>
+							<router-link
+								tag="button"
+								class="mr-2 flex items-center"
+								:to="{ name: 'CreateHousePage' }"
+							>
+								<font-awesome-icon icon="add" />
 							</router-link>
 							<button class="mr-4 flex items-center">
-								<i class="material-icons">notifications</i>
+								<font-awesome-icon icon="bell" />
 							</button>
 							<div class="flex items-center">
 								<img
@@ -34,12 +38,13 @@
 						<div v-else>
 							<button
 								class="btn__outline btn__outline--teal rounded mr-2"
-								@click.prevent="getLogin"
+								@click.prevent="openModal('login')"
 							>
 								Login
 							</button>
 							<button
 								class="bg-yellow-dark text-yellow-darker font-semibold py-2 px-4 rounded"
+								@click.prevent="openModal('register')"
 							>
 								Register
 							</button>
@@ -64,14 +69,11 @@ export default {
 	},
 
 	methods: {
-		getLogin() {
+		openModal(name) {
 			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "login",
+				name,
 				value: true,
 			})
-		},
-		signUp() {
-			console.log("Sign Up Click")
 		},
 	},
 

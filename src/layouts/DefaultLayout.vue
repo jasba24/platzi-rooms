@@ -14,9 +14,10 @@
 						<div class="mb-4">
 							<label class="input__label" for="where">Where</label>
 							<div class="form__field relative">
-								<i class="input-icon material-icons absolute text-grey-darker"
-									>search</i
-								>
+								<font-awesome-icon
+									class="absolute text-grey-darker input-icon"
+									icon="search"
+								/>
 								<input
 									class="input__search"
 									id="where"
@@ -39,15 +40,16 @@
 		</main>
 		<footer-partial></footer-partial>
 		<!-- modal -->
-		<Modal :show="modals.login" @closeModal="closeModal">
+		<Modal :show="modals.login" @closeModal="closeModal('login')">
 			<h2 class="text-grey-darkest font-semibold text-center mb-6">
 				Welcome to Platzi Rooms
 			</h2>
-			<form>
+			<form @submit.prevent="loginHandlerSubmit">
 				<div class="mb-4">
 					<label class="input__label">Email</label>
 					<div class="form__field relative">
 						<input
+							v-model="formLogin.email"
 							class="input__field"
 							type="text"
 							placeholder="bruce.wayne@imnobatman.org"
@@ -58,6 +60,7 @@
 					<label class="input__label">Password</label>
 					<div class="form__field relative">
 						<input
+							v-model="formLogin.password"
 							class="input__field"
 							type="password"
 							placeholder="***************"
@@ -69,6 +72,49 @@
 				</div>
 				<div class="mb-4">
 					<button class="btn btn-primary mr-3 w-full">Login</button>
+				</div>
+			</form>
+		</Modal>
+		<Modal :show="modals.register" @closeModal="closeModal('register')">
+			<h2 class="text-grey-darkest font-semibold text-center mb-6">
+				Welcome to Platzi Rooms
+			</h2>
+			<form @submit.prevent="registerHandlerSubmit">
+				<div class="mb-4">
+					<label class="input__label">Name</label>
+					<div class="form__field relative">
+						<input
+							v-model="formRegister.name"
+							class="input__field"
+							type="text"
+							placeholder="bruce wayne"
+						/>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label class="input__label">Email</label>
+					<div class="form__field relative">
+						<input
+							v-model="formRegister.email"
+							class="input__field"
+							type="text"
+							placeholder="bruce.wayne@imnobatman.org"
+						/>
+					</div>
+				</div>
+				<div class="mb-4">
+					<label class="input__label">Password</label>
+					<div class="form__field relative">
+						<input
+							v-model="formRegister.password"
+							class="input__field"
+							type="password"
+							placeholder="Create a password"
+						/>
+					</div>
+				</div>
+				<div class="mb-4">
+					<button class="btn btn-primary mr-3 w-full">Create account</button>
 				</div>
 			</form>
 		</Modal>
@@ -98,6 +144,11 @@ export default {
 				password: "",
 				rememberMe: false,
 			},
+			formRegister: {
+				email: "",
+				name: "",
+				password: "",
+			},
 		}
 	},
 
@@ -106,11 +157,26 @@ export default {
 	},
 
 	methods: {
-		closeModal() {
+		closeModal(name) {
 			this.$store.dispatch("TOOGLE_MODAL_STATE", {
-				name: "login",
+				name,
 				value: false,
 			})
+		},
+		registerHandlerSubmit() {
+			this.$store.dispatch("CREATE_USER", this.formRegister).then(() => {
+				this.closeModal("register")
+			})
+		},
+		loginHandlerSubmit() {
+			this.$store
+				.dispatch("SIGN_IN", {
+					email: this.formLogin.email,
+					password: this.formLogin.password,
+				})
+				.then(() => {
+					this.closeModal("login")
+				})
 		},
 	},
 }

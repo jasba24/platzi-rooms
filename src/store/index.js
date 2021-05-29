@@ -7,9 +7,10 @@ export default createStore({
 		users: [],
 		services: [],
 		rooms: [],
-		authId: "38St7Q8Zi2N1SPa5ahzssq9kbyp1",
+		authId: null,
 		modals: {
 			login: false,
+			register: false,
 		},
 	},
 	mutations: {
@@ -26,8 +27,9 @@ export default createStore({
 			const newItem = item
 			newItem[".key"] = id
 			state[resource].push(newItem)
-			// console.log(this.state.services);
-			// console.log(this.state.users);
+		},
+		SET_AUTHID(state, id) {
+			state.authId = id
 		},
 	},
 	actions: {
@@ -36,7 +38,6 @@ export default createStore({
 		},
 		CREATE_ROOM: ({ state, commit }, room) => {
 			const newRoom = room
-			console.log(room)
 			const roomId = firebase
 				.database()
 				.ref("rooms")
@@ -111,13 +112,54 @@ export default createStore({
 				})
 			})
 		},
+		CREATE_USER: ({ state, commit }, { email, name, password }) => {
+			new Promise(resolve => {
+				firebase
+					.auth()
+					.createUserWithEmailAndPassword(email, password)
+					.then(account => {
+						const id = account.user.uid
+						const registeredAt = Math.floor(Date.now() / 1000)
+						const newUser = { email, password, registeredAt }
+						firebase
+							.database()
+							.ref("users")
+							.child(id)
+							.set(newUser)
+							.then(() => {
+								commit("SET_ITEM", {
+									resource: "users",
+									id,
+									item: newUser,
+								})
+								resolve(state.users[id])
+							})
+					})
+			})
+		},
+		FETCH_AUTH_USER: ({ dispatch, commit }) => {
+			const userId = firebase.auth().currentUser.uid
+			return dispatch("FETCH_USER", { id: userId }).then(() => {
+				commit("SET_AUTHID", userId)
+			})
+		},
+		SIGN_IN: (context, { email, password }) => {
+			return firebase.auth().signInWithEmailAndPassword(email, password)
+		},
+		LOG_OUT: ({ commit }) => {
+			firebase
+				.auth()
+				.signOut()
+				.then(() => {
+					commit("SET_AUTHID", null)
+				})
+		},
 	},
 
 	getters: {
 		modals: state => state.modals,
 		authUser: state => {
-			console.log(state.users[state.authId]);
-			state.users[state.authId]
+			return state.authId ? state.users[state.authId] : null
 		},
 		rooms: state => state.rooms,
 		userRoomsCount: state => id => countObjectProperties(state.users[id].rooms),

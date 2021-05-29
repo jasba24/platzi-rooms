@@ -6,8 +6,10 @@
 
 <script>
 export default {
-	beforeCreate() {
-		this.$store.dispatch("FETCH_USER", { id: this.$store.state.authId })
+	created() {
+		if (this.$store.state.authId) {
+			this.$store.dispatch("FETCH_USER", { id: this.$store.state.authId })
+		}
 	},
 }
 </script>
