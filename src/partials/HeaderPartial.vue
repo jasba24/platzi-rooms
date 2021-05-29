@@ -30,7 +30,9 @@
 									alt="Avatar of Javier Diaz"
 								/>
 								<div class="text-sm">
-									<p class="text-black leading-none">{{ user.name }}</p>
+									<router-link :to="{ name: 'ProfilePage' }" class="no-underline">
+										<p class="text-black leading-none">{{ user.name }}</p>
+									</router-link>
 									<p class="text-grey-dark">Online</p>
 								</div>
 							</div>
@@ -80,7 +82,7 @@ export default {
 		},
 		logOut() {
 			this.$store.dispatch("LOG_OUT")
-		}
+		},
 	},
 
 	computed: {

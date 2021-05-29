@@ -26,11 +26,11 @@
 							<div class="profile__thumbnail">
 								<img
 									class="profile__image w-full"
-									:src="profile.avatar"
+									src="https://avatars2.githubusercontent.com/u/1901273?s=460&v=4"
 								/>
 							</div>
 							<div class="text-lg">
-								<span class="font-semibold">{{userRoomsCount}}</span> rooms
+								<span class="font-semibold">{{ userRoomsCount }}</span> rooms
 							</div>
 						</div>
 					</aside>
@@ -138,9 +138,9 @@ export default {
 		PageLayout,
 	},
 
-  mounted() {
-    this.profile = this.user
-  },
+	mounted() {
+		this.profile = this.user
+	},
 
 	computed: {
 		...mapGetters({
@@ -148,7 +148,7 @@ export default {
 		}),
 		userRoomsCount() {
 			return this.$store.getters.userRoomsCount(this.user[".key"])
-		}
+		},
 	},
 }
 </script>

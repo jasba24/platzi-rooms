@@ -52,7 +52,7 @@
 							v-model="formLogin.email"
 							class="input__field"
 							type="text"
-							placeholder="bruce.wayne@imnobatman.org"
+							placeholder="bruce.wayne@imnotbatman.org"
 						/>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 							v-model="formRegister.email"
 							class="input__field"
 							type="text"
-							placeholder="bruce.wayne@imnobatman.org"
+							placeholder="bruce.wayne@imnotbatman.org"
 						/>
 					</div>
 				</div>

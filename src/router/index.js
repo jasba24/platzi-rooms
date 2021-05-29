@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router"
+import store from "../store"
 
 const routes = [
 	{
@@ -22,12 +23,18 @@ const routes = [
 		name: "ProfilePage",
 		component: () =>
 			import(/* webpackChunkName: "ProfilePage" */ "@/views/user/ProfilePage"),
+		meta: {
+			requiresAuth: true,
+		},
 	},
 	{
 		path: "/user/houses",
 		name: "HousesPage",
 		component: () =>
 			import(/* webpackChunkName: "HousesPage" */ "@/views/user/HousesPage"),
+		meta: {
+			requiresAuth: true,
+		},
 	},
 	{
 		path: "/house",
@@ -40,6 +47,9 @@ const routes = [
 			import(
 				/* webpackChunkName: "CreateHousePage" */ "@/views/CreateHousePage"
 			),
+		meta: {
+			requiresAuth: true,
+		},
 	},
 	{
 		path: "/*",
@@ -52,6 +62,18 @@ const routes = [
 const router = createRouter({
 	history: createWebHashHistory(),
 	routes,
+})
+
+router.beforeEach((to, from, next) => {
+	if (to.matched.some(route => route.meta.requiresAuth)) {
+		if (store.state.authId) {
+			next()
+		} else {
+			next({ name: "HomePage" })
+		}
+	} else {
+		next()
+	}
 })
 
 export default router
