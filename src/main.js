@@ -5,10 +5,10 @@ import router from "./router"
 import store from "./store"
 import { getService } from "./filters/getService"
 import { library } from "@fortawesome/fontawesome-svg-core"
-import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faSearch, faPlus, faBell } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
-library.add(faSearch, faPlus)
+library.add(faSearch, faPlus, faBell)
 
 const firebaseConfig = {
 	apiKey: "AIzaSyA-JXZsHXkHrfEe672K2KoOXE4bwZXMsgg",

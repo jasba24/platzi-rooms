@@ -18,7 +18,7 @@
 								class="mr-2 flex items-center"
 								:to="{ name: 'CreateHousePage' }"
 							>
-								<font-awesome-icon icon="add" />
+								<font-awesome-icon icon="plus" class="text-black" />
 							</router-link>
 							<button class="mr-4 flex items-center">
 								<font-awesome-icon icon="bell" />
@@ -26,7 +26,7 @@
 							<div class="flex items-center">
 								<img
 									class="w-8 h-8 rounded-full mr-2"
-									:src="user.avatar"
+									src="https://avatars2.githubusercontent.com/u/1901273?s=460&v=4"
 									alt="Avatar of Javier Diaz"
 								/>
 								<div class="text-sm">

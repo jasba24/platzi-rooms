@@ -36,20 +36,21 @@
 						<div class="house__price text-xs">
 							<span class="font-bold">${{ room.price }} MXN</span> per night
 						</div>
-						<div class="house__services text-xs mt-2">
+						<!-- <div class="house__services text-xs mt-2">
 							<h4 class=" text-teal-dark">Services</h4>
 							<ul v-for="(room, i) in room.services" :key="i">
 								<li>{{ $filters.getService(services, room) }}</li>
 							</ul>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
 			<div class="text-center">
 				<router-link
 					class="py-3 px-12 bg-yellow-dark no-underline text-yellow-darker text-lg rounded"
-					:to="{name: 'SearchPage'}"
-					>Show all</router-link>
+					:to="{ name: 'SearchPage' }"
+					>Show all</router-link
+				>
 			</div>
 		</section>
 	</default-layout>

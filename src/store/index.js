@@ -4,9 +4,9 @@ import countObjectProperties from "../utils"
 
 export default createStore({
 	state: {
-		users: [],
-		services: [],
-		rooms: [],
+		users: {},
+		services: {},
+		rooms: {},
 		authId: null,
 		modals: {
 			login: false,
@@ -26,7 +26,9 @@ export default createStore({
 		SET_ITEM(state, { item, id, resource }) {
 			const newItem = item
 			newItem[".key"] = id
-			state[resource].push(newItem)
+			state[resource][id] = newItem
+			// console.log(state.rooms);
+			// console.log(state[resource]);
 		},
 		SET_AUTHID(state, id) {
 			state.authId = id
@@ -86,6 +88,7 @@ export default createStore({
 					.ref("users")
 					.child(id)
 					.once("value", snapshot => {
+						// console.log(snapshot.val())
 						commit("SET_ITEM", {
 							resource: "users",
 							id: snapshot.key,
@@ -120,7 +123,7 @@ export default createStore({
 					.then(account => {
 						const id = account.user.uid
 						const registeredAt = Math.floor(Date.now() / 1000)
-						const newUser = { email, password, registeredAt }
+						const newUser = { email, name, registeredAt }
 						firebase
 							.database()
 							.ref("users")
